@@ -1,5 +1,14 @@
+# Pycharm
 .idea/
+
+# Python virtual enviroment
 venv/
+.venv/
+
+# Project settings
+.env
+
+# Resources
 simplified-CBIS-DDSM/
 images/
 *.jpeg
