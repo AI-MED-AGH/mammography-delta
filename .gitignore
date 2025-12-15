@@ -1,1 +1,7 @@
 simplified-CBIS-DDSM
+images
+*.jpeg
+*.gif
+*.png
+*.csv
+*.zip
