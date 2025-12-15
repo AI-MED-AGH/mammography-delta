@@ -1,5 +1,7 @@
-simplified-CBIS-DDSM
-images
+.idea/
+venv/
+simplified-CBIS-DDSM/
+images/
 *.jpeg
 *.gif
 *.png
