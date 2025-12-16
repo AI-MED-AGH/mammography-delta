@@ -1,18 +1,27 @@
-# Last NumPy version before 2.0.0.
-# Pyradiomics (compiled C-extensions) will crash with NumPy 2.0+.
+# --- Core ---
+# Last NumPy version before 2.0.0 (Crucial for Pyradiomics)
 numpy==1.26.4
 
-# Pandas 2.2.x is the last series supporting Python 3.9.
+# --- Data & Math ---
+# Last Pandas supporting Python 3.9
 pandas==2.2.3
-
-# SciPy 1.14+ dropped support for Python 3.9.
+# Last SciPy supporting Python 3.9
 scipy==1.13.1
 
+# --- Visualization ---
+# Last Matplotlib supporting Python 3.9
+matplotlib==3.9.4
+
+# --- Image Processing ---
 scikit-image==0.24.0
-scikit-learn==1.5.2
 opencv-python==4.10.0.84
 pillow==11.0.0
 simpleitk==2.4.0
 
-# Official release. Requires python 3.9 and numpy < 2.0
+# --- ML ---
+# scikit-learn 1.6 dropped Python 3.9 support, stick to 1.5.2
+scikit-learn==1.5.2
+
+# --- Domain Specific ---
+# Official release. Works best on Python 3.9 with numpy < 2.0
 pyradiomics==3.0.1
