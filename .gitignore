@@ -1,5 +1,6 @@
-# Pycharm
+# Pycharm and Jupyter Notebook
 .idea/
+.ipynb_checkpoints/
 
 # Python virtual enviroment
 venv/
