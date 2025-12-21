@@ -150,7 +150,6 @@ def extract_shape_features(img: np.array) -> dict:
 
         # --------------------------------------- Manually calculated features ---------------------------------------
 
-
         # Elongation measure. 1.0 = circle/square. High values (> 1.5) indicate an elongated (ellipsoidal) shape.
         "Aspect Ratio": safe_major_axis / safe_minor_axis,
 
