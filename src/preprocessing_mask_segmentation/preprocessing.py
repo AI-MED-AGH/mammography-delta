@@ -1,14 +1,8 @@
-# %%
 import cv2
 import numpy as np
 import os
 
 
-# %% [markdown]
-# create function to transform image into numpy array
-# Mask are binarizated but below are functions to do binarization anyway
-
-# %%
 def load_image(path: str) -> np.array:
     """
     Loads an image from the specified file path using OpenCV.
@@ -68,14 +62,6 @@ def mask_binarization(image: np.array, grey_scale=128, max_val=255, type=cv2.THR
     return im_th
 
 
-# %%
-# test1=load_image(path="../../images/1001.png")
-#
-# binarizated = mask_binarization(test1)
-# show_image(binarizated)
-
-
-# %%
 def get_largest_connected_component(image: np.array):
     """
     Extracts the largest connected component (object) from a binary image.
@@ -126,6 +112,49 @@ def filter_by_area(binary_image: np.array, min_area: int) -> np.array:
     return filtered_mask
 
 
+def smooth_mask_edges(mask: np.array, smoothing_factor: float = 0.005) -> np.array:
+    """
+    Smooths the edges of a binary mask using morphological opening.
+    This helps in reducing the perimeter length caused by pixel noise,
+    which improves shape descriptors like Circularity or Irregularity Index.
+
+    Args:
+        mask (np.array): A binary image (mask).
+        kernel_size (int, optional): Size of the structuring element.
+                                     Larger values smooth more aggressively. Defaults to 5.
+
+    Returns:
+        np.array: The smoothed binary mask.
+    """
+
+    # Ensure mask is uint8 for OpenCV operations
+    if mask.dtype == bool:
+        mask = mask.astype(np.uint8) * 255
+
+    # Calculate dynamic kernel size based on image dimentions
+    h, w = mask.shape[:2]
+    min_dim = min(h, w)
+
+    # Calculate kernel size
+    k_size = int(min_dim * smoothing_factor)
+
+    # Enforce constrains:
+    # 1. must be at least 3 (minimum valid kernel)
+    # 2. must be an odd number (required by OpenCV center pixel logic)
+    if k_size % 2 == 0:
+        k_size += 1
+    k_size = max(3, k_size)
+
+    # Create an elliptical kernel (better for biological/round shapes than a square kernel)
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (k_size, k_size))
+
+    # Apply Morphological Opening (Erosion followed by Dilation)
+    # This removes small protrusions from the edges without significantly changing the area.
+    smoothed_mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
+
+    return smoothed_mask
+
+
 def clean_mask(path: str, min_area: int = 0, only_largest: bool = False) -> np.array:
     """
     Main pipeline function to generate a cleaned binary mask from an image file.
@@ -152,11 +181,3 @@ def clean_mask(path: str, min_area: int = 0, only_largest: bool = False) -> np.a
         return filter_by_area(binary_mask, min_area)
     else:
         return binary_mask
-
-
-# %%
-"""Example of 4 cleaned_masks their are really similar to original ones"""
-
-# for i in range(1,5):
-#     test1 = clean_mask(path=f"../../images/100{i}.png")
-#     show_image(test1)
