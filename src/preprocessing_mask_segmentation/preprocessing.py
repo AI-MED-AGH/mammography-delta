@@ -68,7 +68,7 @@ def mask_binarization(image:np.array,grey_scale=128,max_val = 255,type = cv2.THR
     return im_th
 
 # %%
-test1=load_image(path="../../simplified-CBIS-DDSM/simplified-CBIS-DDSM/images/1001.png")
+test1=load_image(path="../../images/1001.png")
 
 binarizated = mask_binarization(test1)
 show_image(binarizated)
@@ -157,7 +157,7 @@ def clean_mask(path: str, min_area: int = 0, only_largest: bool = False) -> np.a
 """Example of 4 cleaned_masks their are really similar to original ones"""
 
 for i in range(1,5):
-    test1 = clean_mask(path=f"../../simplified-CBIS-DDSM/simplified-CBIS-DDSM/images/100{i}.png")
+    test1 = clean_mask(path=f"../../images/100{i}.png")
     show_image(test1)
 
 
