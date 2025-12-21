@@ -17,6 +17,7 @@ def load_image(path: str) -> np.array:
         FileNotFoundError: If the file does not exist at the specified path.
         ValueError: If the image could not be loaded (e.g., corrupted file).
     """
+
     if not os.path.exists(path):
         raise FileNotFoundError(f"Path not found: {path}")
     image = cv2.imread(path)
@@ -33,6 +34,7 @@ def show_image(image: np.array) -> None:
         image (np.array): The image to display.
         title (str, optional): The title of the window. Defaults to "Image".
     """
+
     if not image.any():
         print("Image is None")
         return
@@ -55,6 +57,7 @@ def mask_binarization(image: np.array, grey_scale=128, max_val=255, type=cv2.THR
     Returns:
         np.array: A binary mask where pixels are either 0 or max_val.
     """
+
     if len(image.shape) == 3:
         image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
@@ -73,6 +76,7 @@ def get_largest_connected_component(image: np.array):
         np.array: A binary mask containing only the largest connected component. 
                   Returns a black image if no components are found.
     """
+
     nb_components, output, stats, centroids = cv2.connectedComponentsWithStats(image, connectivity=8)
 
     if nb_components <= 1:
@@ -97,6 +101,7 @@ def filter_by_area(binary_image: np.array, min_area: int) -> np.array:
     Returns:
         np.array: A binary mask containing only components larger than min_area.
     """
+
     num_labels, labels, stats, centroids = cv2.connectedComponentsWithStats(
         binary_image, connectivity=8, ltype=cv2.CV_32S
     )
