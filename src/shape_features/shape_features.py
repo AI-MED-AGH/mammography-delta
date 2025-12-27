@@ -1,4 +1,6 @@
 import os
+from typing import Optional, Union, Any
+
 import numpy as np
 
 # Image segmentation
@@ -16,7 +18,7 @@ def import_images(img_names: list, folder_path: str) -> dict:
 
     Args:
         img_names (list): A list of image names.
-
+        folder_path (str): A folder path of the folder containing images.
     Returns:
         dict: A dictionary containing np.array image object as value and an image name as a key.
     """
@@ -32,7 +34,7 @@ def import_images(img_names: list, folder_path: str) -> dict:
     return images
 
 
-def extract_shape_features(img: np.array) -> dict:
+def extract_shape_features(img: np.array) -> Optional[dict[Union[str, Any], Union[float, Any]]]:
     """
     Extract most important features from an image
 
@@ -48,7 +50,7 @@ def extract_shape_features(img: np.array) -> dict:
         print(f"Received {type(img)} instead of np.array or image is empty.")
         return None
 
-    # Convert img_bool into logical type (True/False) required in binary_fill_holes
+    # Convert image into logical type (True/False) required in binary_fill_holes
     # (OpenCV returns 0/255)
     img_bool = img.astype(bool)
 
@@ -125,13 +127,6 @@ def extract_shape_features(img: np.array) -> dict:
 
         # The diameter of a circle with the same area as the region.
         "Equivalent Diameter": main_lesion.equivalent_diameter,
-
-        # Euler characteristic of the set of non-zero pixels.
-        # Computed as number of connected components subtracted by number of holes.
-        # 1 - no holes in object, 0 - holes detected in object.
-        # IMPORTANT - IN PREPROCESSING WE FILLED ALL HOLES SO THIS FEATURE IS USELESS AT THE MOMENT
-        # FIX IT LATER
-        "Euler Number": main_lesion.euler_number,
 
         # Maximum Feret’s diameter computed as the longest distance between points
         # around a region’s convex hull contour as determined by find_contours
