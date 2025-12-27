@@ -163,12 +163,12 @@ def smooth_mask_edges(mask: np.array, smoothing_factor: float = 0.005) -> np.arr
 def clean_mask(path: str, min_area: int = 0, only_largest: bool = False) -> np.array:
     """
     Main pipeline function to generate a cleaned binary mask from an image file.
-    
+
     It orchestrates the loading, binarization, and filtering processes.
 
     Args:
         path (str): The file path to the source image.
-        min_area (int, optional): The minimum pixel area to retain a component. 
+        min_area (int, optional): The minimum pixel area to retain a component.
                                   Used if only_largest is False. Defaults to 0.
         only_largest (bool, optional): If True, returns only the single largest connected component,
                                        ignoring min_area. Defaults to False.
@@ -179,6 +179,8 @@ def clean_mask(path: str, min_area: int = 0, only_largest: bool = False) -> np.a
 
     image = load_image(path)
     binary_mask = mask_binarization(image)
+    binary_mask = smooth_mask_edges(binary_mask)
+    binary_mask = mask_binarization(binary_mask)
 
     if only_largest:
         return get_largest_connected_component(binary_mask)
@@ -186,3 +188,12 @@ def clean_mask(path: str, min_area: int = 0, only_largest: bool = False) -> np.a
         return filter_by_area(binary_mask, min_area)
     else:
         return binary_mask
+
+"""Export 7 sample preprocessed images"""
+
+names = ['2168', '1538', '1105', '1529', '1142', '1505', '2332']
+
+for i in names:
+    test = clean_mask(path=f"../../images/{i}.png")
+    show_image(test)
+    cv2.imwrite(f"../../preprocessed_images/{i}_preprocessed.png", test)
