@@ -1,6 +1,7 @@
 # Pycharm and Jupyter Notebook
 .idea/
 .ipynb_checkpoints/
+__pycache__
 
 # Python virtual enviroment
 venv/
