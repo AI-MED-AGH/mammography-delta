@@ -143,4 +143,50 @@ Description of features from [scikit-image documentation](https://scikit-image.o
 | **Shape Factor**        | Calculated (manual)    | Inverse measure of compactness. Min ~12.57 (circle). Higher values = less compact / more irregular boundary.<br><sub>**Formula:** `Perimeter^2 / Area`</sub>                                                                                                                                                                                                                                                                                                                                                      |
 | **Hu Moments (1-7)**    | Moments                | A set of 7 numbers that are invariant to scale, translation, and rotation. If the tumor is rotated 90 degrees or is twice as large, the Hu Moments will remain (almost) the same. Raw Hu Moments can be 10^30 (too large for ML models). We apply a log transform to bring them to a usable range (e.g., -30 to 30).<br><sub>**Transformation:** `-1 * sign(hu) * log10(abs(hu))`</sub>                                                                                                                           |
 
-## Feature Selection (TODO)
+
+## Exploratory Data Analysis (EDA) 
+EDA was performed to validate feature quality and predictive power.
+A full-scale EDA was performed on all 28+ extracted features to determine data quality and guide the Feature Selection process.
+
+### 1. Multicollinearity & Redundancy
+Using Spearman rank correlation to detect redundant features.
+* **Finding**: Extreme redundancy was detected within size-related features (Area, Perimeter, etc.) and between initial Hu Moments.
+* **Decision**: We will implement a correlation-based filter to retain only one representative feature per highly correlated group ($\rho > 0.90$).
+
+### 2. Predictive Power & Separability
+Analyzing how morphological features differ between Benign and Malignant cases.
+* **Finding**: `Circularity` and `Solidity` were confirmed as the strongest morphological indicators of malignancy.
+* **Finding**: Lesion position (`Centroid X`, `Centroid Y`) and `Orientation` show no correlation with pathology, as expected in medical imaging. These will be considered for removal.
+
+### 3. Outlier and Scale Report
+Identifying extreme values using the IQR method to ensure data quality.
+* **Finding**: Significant outliers exist in approx. 10% of the dataset for size metrics.
+* **Strategy**: Robust Scaling (StandardScaler or RobustScaler) will be prioritized over simple Min-Max scaling to handle these extreme values without losing information.
+
+### EDA Artifacts:
+* **Full Correlation Matrix**: [correlation_matrix.csv](data_analysis/eda/correlation_matrix.csv)
+* **Outlier Statistics**: [outlier_report.csv](data_analysis/eda/outlier_report.csv)
+* **Visualizations**: Stored in `data_analysis/eda/`.
+
+
+## Feature Selection 
+To optimize the model's performance and prevent multicollinearity, an automated feature selection process was implemented based on the Exploratory Data Analysis (EDA) findings.
+
+### Automated Correlation Filter
+Using the `src/feature_engineering/selection.py` module, we perform the following:
+* **Method**: Spearman Rank Correlation (chosen for its robustness against outliers identified during EDA).
+* **Threshold**: Features with an absolute correlation coefficient $|r| > 0.90$ are automatically removed.
+* **Redundancy Reduction**: Highly redundant clusters, such as those within lesion size metrics (e.g., `Area` vs. `Area Convex` where $r=0.99$), are reduced to a single representative feature.
+* **Benefit**: This simplifies the feature space, reduces the risk of overfitting, and improves the stability of distance-based models like SVM and KNN.
+
+### Optimized Feature Set
+The final predictors selected for model training are:
+* **Size & Scale**: `Area` (Used as the primary representative for all size-related metrics).
+* **Shape & Elongation**: `Eccentricity`, `Extent`, `Orientation`.
+* **Boundary Complexity**: `Solidity`, `Circularity`.
+* **Geometric Invariants**: `Hu Moment 4`, `Hu Moment  Hu 5`, `Hu Moment 6`, `Hu Moment 7`.
+
+### Visual Verification
+The heatmap below demonstrates the correlation matrix of the optimized set. Notice the absence of extreme "hot spots" ($|r| > 0.90$), confirming that the remaining features provide independent geometric information.
+
+![Optimized Correlation Matrix](data_analysis/eda/optimized_correlation_matrix.png)
