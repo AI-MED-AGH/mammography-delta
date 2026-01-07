@@ -170,7 +170,10 @@ def extract_shape_features(img: np.array) -> Optional[dict[Union[str, Any], Unio
 
         # Inverse measure of compactness.
         # Min ~12.57 (circle). Higher values = less compact / more irregular boundary.
-        "Shape Factor": (safe_perimeter ** 2) / safe_area
+        "Shape Factor": (safe_perimeter ** 2) / safe_area,
+
+        # Ratio of object area to image size.
+        "Relative Area": safe_area / img.size
     }
 
     # Add Hu Moments to dictionary (split list into 7 separate features)
