@@ -95,8 +95,9 @@ def extract_shape_features_from_mask(mask_path: str, pixel_spacing: Tuple[float,
 
 # ---(Example Usage) ---
 if __name__ == '__main__':
+    IMG_PATH = '../../images'
     names = ['2168', '1538', '1105', '1529', '1142', '1505', '2332']
     for i in names:
-        extracted_info = extract_shape_features_from_mask(mask_path=f"simplified-CBIS-DDSM/simplified-CBIS-DDSM/images/{i}.png")
+        extracted_info = extract_shape_features_from_mask(mask_path=f"{IMG_PATH}/{i}.png")
         print()
         print(extracted_info)
