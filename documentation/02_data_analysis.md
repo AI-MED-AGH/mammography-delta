@@ -30,19 +30,19 @@ Number of actual patients: 888
 
 Number of patients examined once: **266**   
 
-[List of patients (xlsx)](data_analysis/Patients_examined_once.xlsx)
+[List of patients (xlsx)](../data_analysis/Patients_examined_once.xlsx)
 
-[List of patients (csv)](data_analysis/Patients_examined_once.csv)
+[List of patients (csv)](../data_analysis/Patients_examined_once.csv)
 
-![img_1.png](data_analysis/img_1.png)
+![img_1.png](../data_analysis/img_1.png)
 
 Number of patients examined more than once: **622**   
 
-[List of patients (xlsx)](data_analysis/Patients_examined_more_than_once.xlsx)
+[List of patients (xlsx)](../data_analysis/Patients_examined_more_than_once.xlsx)
 
-[List of patients (csv)](data_analysis/Patients_examined_more_than_once.csv)
+[List of patients (csv)](../data_analysis/Patients_examined_more_than_once.csv)
 
-![img.png](data_analysis/img.png)
+![img.png](../data_analysis/img.png)
 
 ### Data Analysis Conclusions
 No records were rejected. 
