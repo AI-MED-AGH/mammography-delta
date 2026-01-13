@@ -23,3 +23,6 @@ images/
 # Not ignore EDA reports
 !data_analysis/eda/*.csv
 !data_analysis/eda/*.png
+
+# Not ignore documentation files
+!documentation/*
