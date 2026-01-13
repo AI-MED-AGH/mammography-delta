@@ -1,28 +1,37 @@
-# Pycharm and Jupyter Notebook
+# --- IDE & Notebooks ---
 .idea/
 .ipynb_checkpoints/
-__pycache__
+__pycache__/
 
-# Python virtual enviroment
+# --- Python Virtual Environment ---
 venv/
 .venv/
 
-# Project settings
+# --- Project Settings & Secrets ---
+# CRITICAL: Never commit .env files containing API keys or passwords
 .env
 
-# Resources
+# --- Resources & Large Data ---
 simplified-CBIS-DDSM/
 images/
 *.jpeg
+*.jpg
 *.gif
 *.png
 *.csv
 *.zip
 *.pdf
 
-# Not ignore EDA reports
+# --- Exceptions (Whitelisting) ---
+# We use the exclamation mark (!) to NOT ignore (allow) specific files,
+# even if their extensions are excluded above.
+
+# Keep EDA reports
 !data_analysis/eda/*.csv
 !data_analysis/eda/*.png
 
-# Not ignore documentation files
-!documentation/*
+# Keep documentation files (regardless of folder depth)
+!documentation/**/*.md
+!documentation/**/*.png
+!documentation/**/*.csv
+!documentation/**/*.xlsx
