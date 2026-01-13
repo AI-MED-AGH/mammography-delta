@@ -25,3 +25,4 @@ scikit-learn==1.5.2
 # --- Domain Specific ---
 # Official release. Works best on Python 3.9 with numpy < 2.0
 pyradiomics==3.0.1
+radiomics
