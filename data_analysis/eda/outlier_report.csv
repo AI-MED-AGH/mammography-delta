@@ -1,0 +1,29 @@
+,count,percentage
+Area,143.0,8.59
+Area Bounding Box,134.0,8.05
+Area Convex,140.0,8.41
+Area Filled,143.0,8.59
+Axis Major Length,90.0,5.41
+Axis Minor Length,67.0,4.03
+Centroid X,89.0,5.35
+Centroid Y,70.0,4.21
+Eccentricity,6.0,0.36
+Extent,28.0,1.68
+Equivalent Diameter,82.0,4.93
+Feret Diameter Max,95.0,5.71
+Perimeter,91.0,5.47
+Solidity,11.0,0.66
+Orientation,0.0,0.0
+Aspect Ratio,91.0,5.47
+Circularity,52.0,3.12
+Convexity,31.0,1.86
+Irregularity Index,23.0,1.38
+Roundness,32.0,1.92
+Shape Factor,33.0,1.98
+Hu Moment 1,34.0,2.04
+Hu Moment 2,31.0,1.86
+Hu Moment 3,34.0,2.04
+Hu Moment 4,28.0,1.68
+Hu Moment 5,0.0,0.0
+Hu Moment 6,0.0,0.0
+Hu Moment 7,0.0,0.0

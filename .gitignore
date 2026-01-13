@@ -19,3 +19,7 @@ images/
 *.csv
 *.zip
 *.pdf
+
+# Not ignore EDA reports
+!data_analysis/eda/*.csv
+!data_analysis/eda/*.png
