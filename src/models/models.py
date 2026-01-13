@@ -8,13 +8,13 @@ RANDOM_STATE = 42
 
 
 def train_lr(X_train, y_train):
-    model = LogisticRegression(max_iter=2000, random_state=RANDOM_STATE)
+    model = LogisticRegression(max_iter=2000, random_state=RANDOM_STATE,class_weight='balanced')
     model.fit(X_train, y_train)
     return model
 
 
 def train_rf(X_train, y_train):
-    model = RandomForestClassifier()
+    model = RandomForestClassifier(class_weight='balanced')
     model.fit(X_train, y_train)
     return model
 
@@ -26,7 +26,7 @@ def train_knn(X_train, y_train):
 
 
 def train_svm(X_train, y_train):
-    model = SVC()
+    model = SVC(class_weight='balanced')
     model.fit(X_train, y_train)
     return model
 
