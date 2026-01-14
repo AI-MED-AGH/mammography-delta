@@ -190,3 +190,17 @@ The final predictors selected for model training are:
 The heatmap below demonstrates the correlation matrix of the optimized set. Notice the absence of extreme "hot spots" ($|r| > 0.90$), confirming that the remaining features provide independent geometric information.
 
 ![Optimized Correlation Matrix](data_analysis/eda/optimized_correlation_matrix.png)
+
+
+## Model Evaluation and Error Analysis
+
+We implemented a unified evaluation framework to standardize performance reporting and ensure model trustworthiness in a clinical context.
+
+### 1. Comparative Analysis
+* **Cross-Validation Comparison**: All models are compared using stratified K-fold cross-validation across metrics like Accuracy, Recall, and ROC-AUC.
+* **Results Visualization**: Automated generation of performance charts including error bars (Standard Deviation) to assess model stability.
+
+### 2. Trustworthiness & Interpretation
+* **Normalized Confusion Matrix**: Focuses on percentage distribution to clearly identify sensitivity (Recall) for the Malignant class.
+* **Feature Importance**: Visualizes which morphological features (e.g., `Solidity`, `Circularity`) contribute most to the model's decision-making process.
+* **Error Pattern Analysis**: Specific focus on **False Negatives** (missed cancers). Misclassified instances are filtered into a standalone report for deep-dive analysis of "hard" examples.
