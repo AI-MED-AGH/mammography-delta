@@ -11,6 +11,7 @@ scipy==1.13.1
 # --- Visualization ---
 # Last Matplotlib supporting Python 3.9
 matplotlib==3.9.4
+seaborn
 
 # --- Image Processing ---
 scikit-image==0.24.0
@@ -25,3 +26,4 @@ scikit-learn==1.5.2
 # --- Domain Specific ---
 # Official release. Works best on Python 3.9 with numpy < 2.0
 pyradiomics==3.0.1
+radiomics
