@@ -14,19 +14,19 @@ def train_lr(X_train, y_train):
 
 
 def train_rf(X_train, y_train):
-    model = RandomForestClassifier(class_weight='balanced')
+    model = RandomForestClassifier(class_weight='balanced', n_estimators=100, random_state=RANDOM_STATE)
     model.fit(X_train, y_train)
     return model
 
 
 def train_knn(X_train, y_train):
-    model = KNeighborsClassifier()
+    model = KNeighborsClassifier(n_neighbors=5)
     model.fit(X_train, y_train)
     return model
 
 
 def train_svm(X_train, y_train):
-    model = SVC(class_weight='balanced')
+    model = SVC(class_weight='balanced', kernel='rbf', random_state=RANDOM_STATE)
     model.fit(X_train, y_train)
     return model
 

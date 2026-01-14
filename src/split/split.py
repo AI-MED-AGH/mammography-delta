@@ -4,7 +4,8 @@ from sklearn.model_selection import StratifiedGroupKFold
 
 RANDOM_STATE = 49  # Random State was selected to maintain balanced y mean in train and test sets
 TEST_SIZE = 0.2
-
+TRAIN_SPLIT_PATH = "../output/train_split.csv"
+TEST_SPLIT_PATH = "../output/test_split.csv"
 
 def aware_patient_split(features_vector, drop_cols) -> tuple:
     """
@@ -37,8 +38,8 @@ def aware_patient_split(features_vector, drop_cols) -> tuple:
     X_test = df_test[features_cols]
     y_test = df_test['pathology']
 
-    df_train.to_csv('train_split.csv', index=False)
-    df_test.to_csv('test_split.csv', index=False)
+    df_train.to_csv(TRAIN_SPLIT_PATH, index=False)
+    df_test.to_csv(TEST_SPLIT_PATH, index=False)
 
     is_intersect_empty = set(train_idx).isdisjoint(set(test_idx))
 
@@ -76,8 +77,8 @@ def aware_patient_split_stratified_kfold(features_vector, drop_cols) -> tuple:
     y_test = df_test['pathology']
 
     
-    df_train.to_csv('train_split.csv', index=False)
-    df_test.to_csv('test_split.csv', index=False)
+    df_train.to_csv(TEST_SPLIT_PATH, index=False)
+    df_test.to_csv(TRAIN_SPLIT_PATH, index=False)
 
     is_intersect_empty = set(train_idx).isdisjoint(set(test_idx))
 
