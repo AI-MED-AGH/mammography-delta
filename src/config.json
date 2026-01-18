@@ -5,6 +5,8 @@
 
   "use_classic_aware_split": 1,
 
+  "perform_hyperparameter_tuning": 0,
+
   "selected_assessments": [0, 1, 2, 3, 4, 5],
 
   "train_and_evaluate": ["hybrid", "shape_only", "assessment_only"]
