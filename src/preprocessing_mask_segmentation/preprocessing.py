@@ -194,11 +194,13 @@ if __name__ == "__main__":
     """Example of 4 cleaned_masks their are really similar to original ones"""
     for i in range(1,5):
         test = clean_mask(path=f"../../images/100{i}.png")
-        show_image(test)
+        # show_image(test)
 
     """Export 7 sample preprocessed images"""
     names = ['2168', '1538', '1105', '1529', '1142', '1505', '2332']
 
     for i in names:
+        img = load_image(path=f"../../images/{i}.png")
         test = clean_mask(path=f"../../images/{i}.png")
-        cv2.imwrite(f"../../preprocessed_images/{i}_preprocessed.png", test)
+        cv2.imwrite(f"../../documentation/preprocessed_images/{i}_preprocessed.png", test)
+        cv2.imwrite(f"../../documentation/preprocessed_images/{i}_original.png", img)
