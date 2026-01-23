@@ -98,11 +98,11 @@ def run_detailed_evaluation(model, X_test, y_test, feature_names, model_name="Be
     rec = recall_score(y_test, y_pred)
     f1 = f1_score(y_test, y_pred)
 
-    # --- ZMIANA UKŁADU NA 2x2 (Czytelniej) ---
+    # Change the template to 2x2
     fig, axes = plt.subplots(2, 2, figsize=(16, 14))
-    axes = axes.flatten()  # Pozwala odwoływać się jako axes[0], axes[1] itd.
+    axes = axes.flatten()  # Enables to call axes[0], axes[1] etc.
 
-    # 1. Overall Metrics (Bar Chart) - Top Left
+    # Overall Metrics (Bar Chart) - Top Left
     metrics_map = {'Accuracy': acc, 'Precision': prec, 'Recall': rec, 'F1-Score': f1}
     colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728']
 
@@ -116,21 +116,21 @@ def run_detailed_evaluation(model, X_test, y_test, feature_names, model_name="Be
         axes[0].text(bar.get_x() + bar.get_width() / 2., height + 0.02,
                      f'{height:.2f}', ha='center', va='bottom', fontsize=10, fontweight='bold')
 
-    # 2. Confusion Matrix (Normalized) - Top Right
+    # Confusion Matrix (Normalized) - Top Right
     cm = confusion_matrix(y_test, y_pred, normalize='true')
     sns.heatmap(cm, annot=True, fmt='.2%', ax=axes[1], cmap='Blues', cbar=False)
     axes[1].set_title(f"Confusion Matrix (Normalized)")
     axes[1].set_xlabel("Predicted Label")
     axes[1].set_ylabel("True Label")
 
-    # 3. ROC Curve - Bottom Left
+    # ROC Curve - Bottom Left
     fpr, tpr, _ = roc_curve(y_test, y_probs)
     axes[2].plot(fpr, tpr, color='darkorange', lw=2, label=f'AUC = {roc_auc_score(y_test, y_probs):.2f}')
     axes[2].plot([0, 1], [0, 1], color='navy', linestyle='--')
     axes[2].set_title("ROC Curve")
     axes[2].legend(loc="lower right")
 
-    # 4. Precision-Recall Curve - Bottom Right
+    # Precision-Recall Curve - Bottom Right
     prec_curve, rec_curve, _ = precision_recall_curve(y_test, y_probs)
     axes[3].plot(rec_curve, prec_curve, color='green', lw=2)
     axes[3].set_title("Precision-Recall Curve")
@@ -138,24 +138,23 @@ def run_detailed_evaluation(model, X_test, y_test, feature_names, model_name="Be
     plt.tight_layout()
     plt.show()
 
-    # --- FEATURE IMPORTANCE (Naprawa pustego wykresu) ---
+    # Feature importance
     importances = []
 
-    # Próba pobrania ważności
+    # Try to get feature importance
     if hasattr(model, 'feature_importances_'):
         importances = model.feature_importances_
     elif hasattr(model, 'coef_'):
         importances = np.abs(model.coef_[0])
 
-    # Rysujemy TYLKO jeśli mamy dane (eliminuje pusty wykres <Figure size...>)
+    # Plot figure only if importance is not empty
     if len(importances) > 0:
         plt.figure(figsize=(10, 6))
 
-        # Bezpieczna konwersja feature_names
         f_names = feature_names
         if not isinstance(f_names, list) and hasattr(f_names, 'tolist'):
             f_names = f_names.tolist()
-        elif hasattr(f_names, 'columns'):  # Jeśli to DataFrame
+        elif hasattr(f_names, 'columns'):  # If DataFrame
             f_names = f_names.columns.tolist()
 
         feat_importances = pd.Series(importances, index=f_names)

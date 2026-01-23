@@ -177,10 +177,10 @@ def clean_mask(path: str, min_area: int = 0, only_largest: bool = False) -> np.a
         np.array: The final processed binary mask.
     """
 
+    # Perform basic preprocessing on single image
     image = load_image(path)
     binary_mask = mask_binarization(image)
     binary_mask = smooth_mask_edges(binary_mask)
-    binary_mask = mask_binarization(binary_mask)
 
     if only_largest:
         return get_largest_connected_component(binary_mask)
@@ -189,6 +189,7 @@ def clean_mask(path: str, min_area: int = 0, only_largest: bool = False) -> np.a
     else:
         return binary_mask
 
+# Test preprocessing
 if __name__ == "__main__":
     """Example of 4 cleaned_masks their are really similar to original ones"""
     for i in range(1,5):
