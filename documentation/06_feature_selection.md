@@ -10,7 +10,6 @@ Using the `src/feature_engineering/selection.py` module, we perform the followin
 
 ### Optimized Feature Set
 The final predictors selected for model training are:
-* **Size & Scale**: `Area` (Used as the primary representative for all size-related metrics).
 * **Shape & Elongation**: `Eccentricity`, `Extent`, `Orientation`.
 * **Boundary Complexity**: `Solidity`, `Circularity`.
 * **Geometric Invariants**: `Hu Moment 4`, `Hu Moment  Hu 5`, `Hu Moment 6`, `Hu Moment 7`.
