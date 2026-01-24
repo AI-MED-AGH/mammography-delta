@@ -20,7 +20,20 @@ We evaluated four different architectures using Stratified Cross-Validation to e
 
 ---
 
-## 3. Final Model Detailed Evaluation
+## 3. Hyperparameter Optimization
+Objective Maximize the predictive performance of the top-performing algorithms—Random Forest and SVM—to ensure clinical reliability.
+### Methodology 
+We employed GridSearchCV for a systematic, data-driven search of the hyperparameter space.
+* Validation Scheme: Used 5-Fold Stratified Cross-Validation to preserve class balance and ensure robustness across data subsets.
+* Optimization Metric: Targeted ROC-AUC to balance sensitivity and specificity effectively, rather than simple accuracy.
+### Model Tuning
+* Random Forest: Optimized estimator count and tree complexity parameters (max_depth, min_samples_split) to prevent overfitting and ensure stability.
+* SVM: Tuned regularization (C) and kernel coefficients (gamma) to refine the decision boundary margin.
+
+> Validation Final configurations were validated against baseline (default) models to quantify statistical improvements in performance.
+---
+
+## 4. Final Model Detailed Evaluation
 The **SVM (RBF)** was selected as the final classifier for detailed diagnostic analysis.
 
 ### Error Distribution (Test Set)
@@ -35,7 +48,7 @@ The **SVM (RBF)** was selected as the final classifier for detailed diagnostic a
 
 ---
 
-## 4. "Hardest Examples" Analysis (Pattern Inspection)
+## 5. "Hardest Examples" Analysis (Pattern Inspection)
 We conducted a deep-dive analysis into the **72 False Negative** cases to understand why the model fails on certain malignant tumors.
 
 ### Geometric Mimicry Pattern
@@ -52,13 +65,13 @@ By comparing the feature means of FN cases against the global dataset, we identi
 
 ---
 
-## 5. Interpretability and Feature Importance
+## 6. Interpretability and Feature Importance
 * **SVM RBF Interpretation**: Due to the non-linear nature of the RBF kernel, direct feature importance coefficients are not available. 
 * **Insight**: The massive divergence in **Hu Moment 7** for misclassified cases suggests that higher-order geometric descriptors are crucial for distinguishing "hard" malignant cases from benign ones.
 
 ---
 
-## 6. Future Improvements (Roadmap)
+## 7. Future Improvements (Roadmap)
 To improve the current diagnostic accuracy, the following steps are planned:
 1. **Class Balancing**: Implement `class_weight='balanced'` to further sensitize the model to malignant cases.
 2. **Probability Thresholding**: Adjust the decision threshold to prioritize Recall over Precision.
