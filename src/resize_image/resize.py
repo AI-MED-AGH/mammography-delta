@@ -49,9 +49,9 @@ def resize_with_padding(img, target_size=224):
 
 
 if __name__ == "__main__":
-    SAVE_PATH = "../../documentation/resized_image/"
+    SAVE_PATH = "../../documentation/resized_images/"
     IMAGE_PATH = "../../images/"
-    IMAGES_SAMPLES = ['1003', '1488', '1505', '1176', '1976']
+    IMAGES_SAMPLES = ['1003', '1488', '1505', '1176', '1976', '2168', '2332']
 
     # Test resize function
     for sample in IMAGES_SAMPLES:
