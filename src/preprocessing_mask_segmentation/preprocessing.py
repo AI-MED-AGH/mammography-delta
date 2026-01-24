@@ -32,7 +32,6 @@ def show_image(image: np.array) -> None:
 
     Args:
         image (np.array): The image to display.
-        title (str, optional): The title of the window. Defaults to "Image".
     """
 
     if not image.any():
@@ -43,7 +42,7 @@ def show_image(image: np.array) -> None:
     cv2.destroyAllWindows()
 
 
-def mask_binarization(image: np.array, grey_scale=128, max_val=255, type=cv2.THRESH_BINARY) -> np.array:
+def mask_binarization(image: np.array, grey_scale=128, max_val=255, tresh_type=cv2.THRESH_BINARY) -> np.array:
     """
     Applies thresholding to an image to create a binary mask.
     Automatically converts color images (BGR) to grayscale before processing.
@@ -61,7 +60,7 @@ def mask_binarization(image: np.array, grey_scale=128, max_val=255, type=cv2.THR
     if len(image.shape) == 3:
         image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-    th, im_th = cv2.threshold(image, grey_scale, max_val, type)
+    th, im_th = cv2.threshold(image, grey_scale, max_val, tresh_type)
     return im_th
 
 
@@ -177,10 +176,10 @@ def clean_mask(path: str, min_area: int = 0, only_largest: bool = False) -> np.a
         np.array: The final processed binary mask.
     """
 
+    # Perform basic preprocessing on single image
     image = load_image(path)
     binary_mask = mask_binarization(image)
     binary_mask = smooth_mask_edges(binary_mask)
-    binary_mask = mask_binarization(binary_mask)
 
     if only_largest:
         return get_largest_connected_component(binary_mask)
@@ -189,15 +188,18 @@ def clean_mask(path: str, min_area: int = 0, only_largest: bool = False) -> np.a
     else:
         return binary_mask
 
+# Test preprocessing
 if __name__ == "__main__":
     """Example of 4 cleaned_masks their are really similar to original ones"""
     for i in range(1,5):
         test = clean_mask(path=f"../../images/100{i}.png")
-        show_image(test)
+        # show_image(test)
 
     """Export 7 sample preprocessed images"""
     names = ['2168', '1538', '1105', '1529', '1142', '1505', '2332']
 
     for i in names:
+        img = load_image(path=f"../../images/{i}.png")
         test = clean_mask(path=f"../../images/{i}.png")
-        cv2.imwrite(f"../../preprocessed_images/{i}_preprocessed.png", test)
+        cv2.imwrite(f"../../documentation/preprocessed_images/{i}_preprocessed.png", test)
+        cv2.imwrite(f"../../documentation/preprocessed_images/{i}_original.png", img)

@@ -10,12 +10,15 @@ Using the `src/feature_engineering/selection.py` module, we perform the followin
 
 ### Optimized Feature Set
 The final predictors selected for model training are:
-* **Size & Scale**: `Area` (Used as the primary representative for all size-related metrics).
-* **Shape & Elongation**: `Eccentricity`, `Extent`, `Orientation`.
+* **Shape & Elongation**: `Eccentricity`, `Extent`.
 * **Boundary Complexity**: `Solidity`, `Circularity`.
 * **Geometric Invariants**: `Hu Moment 4`, `Hu Moment  Hu 5`, `Hu Moment 6`, `Hu Moment 7`.
+
+> **_NOTE:_** `Area` and `Orientation` was manually removed as it is image size-dependent feature. We decided to base our work on features independent of image sizes.
 
 ### Visual Verification
 The heatmap below demonstrates the correlation matrix of the optimized set. Notice the absence of extreme "hot spots" ($|r| > 0.90$), confirming that the remaining features provide independent geometric information.
 
-![Optimized Correlation Matrix](../data_analysis/eda/optimized_correlation_matrix.png)
+![Optimized Correlation Matrix](eda/optimized_correlation_matrix.png)
+
+---

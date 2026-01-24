@@ -45,5 +45,20 @@ def resize_with_padding(img, target_size=224):
         new_img.paste(img, (offset_x, offset_y))
         img = new_img
 
-    # Convert back to NumPy array for further processing
-    return np.array(img)
+    return img
+
+
+if __name__ == "__main__":
+    SAVE_PATH = "../../documentation/resized_images/"
+    IMAGE_PATH = "../../images/"
+    IMAGES_SAMPLES = ['1003', '1488', '1505', '1176', '1976', '2168', '2332']
+
+    # Test resize function
+    for sample in IMAGES_SAMPLES:
+        sample_image = Image.open(f"{IMAGE_PATH}{sample}.png")
+        resized_image = resize_with_padding(sample_image)
+
+        # Save image into documentation folder
+        sample_image.save(f"{SAVE_PATH}{sample}_before_resizing.png")
+        resized_image.save(f"{SAVE_PATH}{sample}_resized.png")
+

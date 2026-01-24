@@ -1,23 +1,52 @@
-## Shape Feature Extraction
+## Shape Features Extraction
 
 ### Preparation Before Feature Extraction
 
 Before feature extraction, images were converted from OpenCV's 0-255 pixel range into boolean (True/False) NumPy arrays.
-Next, holes within the objects were filled using `ndimage.binary_fill_holes` (SciPy). 
+Next, holes within the objects were filled using `ndimage.binary_fill_holes` (SciPy).
 After labeling the connected components, the largest region was isolated as the main lesion.
 
 `shape_features` module was implemented to extract all basic image features. Best features were selected
-after analysis and testing - see Feature Selection section.
+after analysis and testing - see [Feature Selection](07_feature_selection.md).
 Finally, we decided not to include Euler Number feature because of image resolution imbalance
-and Solidity feature implementation. Resize image function was not used to extract 
+and Solidity feature implementation. Resize image function was not used to extract
 these features to prevent distortion of the object's edges.
+
+---
+
+### `extract_shape_features`
+
+**Description**
+The core function for feature extraction. It processes a binary mask to isolate the main region of interest (ROI) and
+calculates a comprehensive set of quantitative shape descriptors, including geometric properties, morphological
+features, and invariant moments.
+
+**Key Features**
+
+* **Automatic ROI Isolation:** Internally fills holes and selects only the largest connected component. This ensures
+  that features are calculated solely for the main lesion, ignoring potential background artifacts.
+* **Hybrid Feature Extraction:** Combines standard `skimage` properties (e.g., Area, Eccentricity) with manually
+  calculated medical shape descriptors (e.g., Circularity, Irregularity Index) and **Hu Moments**.
+* **Data Normalization:** Applies logarithmic transformation to Hu Moments to bring them into a usable numerical range
+  and includes safety checks (epsilon) to prevent division-by-zero errors.
+
+**Parameters**
+
+* `img` (np.array): A binary mask (image).
+
+**Returns**
+
+* `dict`: A dictionary containing feature names and their calculated values. Returns `None` if no object is detected.
+
+---
 
 ### Extracted Features Description
 
-Description of features from [scikit-image documentation](https://scikit-image.org/docs/0.25.x/api/skimage.measure.html#skimage.measure.regionprops
+Description of features based
+on [scikit-image documentation](https://scikit-image.org/docs/0.25.x/api/skimage.measure.html#skimage.measure.regionprops
 )
 
-| Feature Name            | Category               | Description (Source Code Comments)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Feature Name            | Category               | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 |:------------------------|:-----------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Area**                | Standard (regionprops) | Area of the region i.e. number of pixels of the region scaled by pixel-area.                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | **Area Bounding Box**   | Standard (regionprops) | Area of the bounding box i.e. number of pixels of bounding box scaled by pixel-area.                                                                                                                                                                                                                                                                                                                                                                                                                              |
@@ -25,7 +54,7 @@ Description of features from [scikit-image documentation](https://scikit-image.o
 | **Area Filled**         | Standard (regionprops) | Area of the region with all the holes filled in.                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | **Axis Major Length**   | Standard (regionprops) | The length of the major axis of the ellipse that has the same normalized second central moments as the region.                                                                                                                                                                                                                                                                                                                                                                                                    |
 | **Axis Minor Length**   | Standard (regionprops) | The length of the minor axis of the ellipse that has the same normalized second central moments as the region.                                                                                                                                                                                                                                                                                                                                                                                                    |
-| **Centroid (X, Y)**     | Standard (regionprops) | Centroid coordinate tuple (row, col).                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| **Centroid (X, Y)**     | Standard (regionprops) | Centroid coordinate tuple (row, col). Stored in two separate variables ("Centroid X", "Centroid Y") in the module                                                                                                                                                                                                                                                                                                                                                                                                 |
 | **Eccentricity**        | Standard (regionprops) | Eccentricity of the ellipse that has the same second-moments as the region. The eccentricity is the ratio of the distance between focal points over the major axis length. The value is in the interval [0, 1). When it is 0, the ellipse becomes a circle.                                                                                                                                                                                                                                                       |
 | **Extent**              | Standard (regionprops) | Ratio of pixels in the region to pixels in the total bounding box. Computed as area / (rows * cols).                                                                                                                                                                                                                                                                                                                                                                                                              |
 | **Equivalent Diameter** | Standard (regionprops) | The diameter of a circle with the same area as the region.                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
@@ -39,4 +68,7 @@ Description of features from [scikit-image documentation](https://scikit-image.o
 | **Irregularity Index**  | Calculated (manual)    | Deviation from a circle. 1.0 = circle. Higher values indicate a complex, rough border compared to the area.<br><sub>**Formula:** `Perimeter / (2 * sqrt(π * Area))`</sub>                                                                                                                                                                                                                                                                                                                                         |
 | **Roundness**           | Calculated (manual)    | Measures how well the area fits a circle, ignoring edge roughness. Robust metric: tells if the overall silhouette is round, even if edges are jagged.<br><sub>**Formula:** `(4 * Area) / (π * Major_Axis^2)`</sub>                                                                                                                                                                                                                                                                                                |
 | **Shape Factor**        | Calculated (manual)    | Inverse measure of compactness. Min ~12.57 (circle). Higher values = less compact / more irregular boundary.<br><sub>**Formula:** `Perimeter^2 / Area`</sub>                                                                                                                                                                                                                                                                                                                                                      |
+| **Relative Area**       | Calculated (manual)    | Ratio of object area to image size. Useful for determining how much of the field of view is occupied by the lesion.<br><sub>**Formula:** `Area / Image_Size`</sub>                                                                                                                                                                                                                                                                                                                                                |
 | **Hu Moments (1-7)**    | Moments                | A set of 7 numbers that are invariant to scale, translation, and rotation. If the tumor is rotated 90 degrees or is twice as large, the Hu Moments will remain (almost) the same. Raw Hu Moments can be 10^30 (too large for ML models). We apply a log transform to bring them to a usable range (e.g., -30 to 30).<br><sub>**Transformation:** `-1 * sign(hu) * log10(abs(hu))`</sub>                                                                                                                           |
+
+---

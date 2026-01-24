@@ -11,29 +11,6 @@ import skimage.measure as skm
 import skimage as ski
 
 
-# Temporary import image function for testing purposes
-def import_images(img_names: list, folder_path: str) -> dict:
-    """
-    Import all images from a folder path
-
-    Args:
-        img_names (list): A list of image names.
-        folder_path (str): A folder path of the folder containing images.
-    Returns:
-        dict: A dictionary containing np.array image object as value and an image name as a key.
-    """
-
-    images = {}
-    for image in img_names:
-        full_path = os.path.join(folder_path + image)
-        try:
-            name_key = os.path.basename(full_path).split('.')[0]
-            images[name_key] = ski.io.imread(full_path)
-        except Exception as e:
-            print(e)
-    return images
-
-
 def extract_shape_features(img: np.array) -> Optional[dict[Union[str, Any], Union[float, Any]]]:
     """
     Extract most important features from an image
