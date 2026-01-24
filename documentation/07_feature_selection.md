@@ -14,6 +14,8 @@ The final predictors selected for model training are:
 * **Boundary Complexity**: `Solidity`, `Circularity`.
 * **Geometric Invariants**: `Hu Moment 4`, `Hu Moment  Hu 5`, `Hu Moment 6`, `Hu Moment 7`.
 
+> **_NOTE:_** `Area` was manually removed as it is image size-dependent feature. We decided to base our work on features independent of image sizes
+
 ### Visual Verification
 The heatmap below demonstrates the correlation matrix of the optimized set. Notice the absence of extreme "hot spots" ($|r| > 0.90$), confirming that the remaining features provide independent geometric information.
 
