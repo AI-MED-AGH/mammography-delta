@@ -18,3 +18,5 @@ The final predictors selected for model training are:
 The heatmap below demonstrates the correlation matrix of the optimized set. Notice the absence of extreme "hot spots" ($|r| > 0.90$), confirming that the remaining features provide independent geometric information.
 
 ![Optimized Correlation Matrix](../data_analysis/eda/optimized_correlation_matrix.png)
+
+---

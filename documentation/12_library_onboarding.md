@@ -27,3 +27,5 @@ To install all dependencies with the correct versions, run:
 ```bash
 pip install -r requirements.txt
 ```
+
+---

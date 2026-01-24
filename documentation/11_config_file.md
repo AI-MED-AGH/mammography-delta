@@ -1,4 +1,4 @@
-## Project Configuration Documentation
+## Project Configuration File
 
 This document describes the configuration flags available for the project pipeline.
 

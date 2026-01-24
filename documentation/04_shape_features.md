@@ -1,4 +1,4 @@
-## Shape Feature Extraction
+## Shape Features Extraction
 
 ### Preparation Before Feature Extraction
 
@@ -70,4 +70,5 @@ on [scikit-image documentation](https://scikit-image.org/docs/0.25.x/api/skimage
 | **Shape Factor**        | Calculated (manual)    | Inverse measure of compactness. Min ~12.57 (circle). Higher values = less compact / more irregular boundary.<br><sub>**Formula:** `Perimeter^2 / Area`</sub>                                                                                                                                                                                                                                                                                                                                                      |
 | **Relative Area**       | Calculated (manual)    | Ratio of object area to image size. Useful for determining how much of the field of view is occupied by the lesion.<br><sub>**Formula:** `Area / Image_Size`</sub>                                                                                                                                                                                                                                                                                                                                                |
 | **Hu Moments (1-7)**    | Moments                | A set of 7 numbers that are invariant to scale, translation, and rotation. If the tumor is rotated 90 degrees or is twice as large, the Hu Moments will remain (almost) the same. Raw Hu Moments can be 10^30 (too large for ML models). We apply a log transform to bring them to a usable range (e.g., -30 to 30).<br><sub>**Transformation:** `-1 * sign(hu) * log10(abs(hu))`</sub>                                                                                                                           |
-|
+
+---

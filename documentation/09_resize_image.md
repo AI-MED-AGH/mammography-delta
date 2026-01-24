@@ -1,4 +1,4 @@
-## Image Resize Function
+## Image Resizing Module
 
 ### `resize_with_padding`
 
@@ -39,4 +39,4 @@ Below are some examples of using the resize function and its effect on image pad
 | `2168` | <a href="resized_images/2168_before_resizing.png"><img width="224" src="resized_images/2168_before_resizing.png"></a> | <a href="resized_images/2168_resized.png"><img width="224" src="resized_images/2168_resized.png"></a> |
 | `2332` | <a href="resized_images/2332_before_resizing.png"><img width="224" src="resized_images/2332_before_resizing.png"></a> | <a href="resized_images/2332_resized.png"><img width="224" src="resized_images/2332_resized.png"></a> |
 
-
+---

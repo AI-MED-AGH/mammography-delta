@@ -1,4 +1,4 @@
-## Mask Preprocessing Module
+## Mask Preprocessing
 
 This module provides a robust pipeline for cleaning, binarizing, and filtering medical image masks. It includes
 algorithms to handle noise reduction, edge smoothing, and object selection based on connectivity and area.
@@ -116,3 +116,5 @@ Below are presented seven sample binary masks before and after preprocessing.
 | `1538` | <a href="preprocessed_images/1538_original.png"><img width="224" src="preprocessed_images/1538_original.png"></a> | <a href="preprocessed_images/1538_preprocessed.png"><img width="224" src="preprocessed_images/1538_preprocessed.png"></a> |
 | `2168` | <a href="preprocessed_images/2168_original.png"><img width="224" src="preprocessed_images/2168_original.png"></a> | <a href="preprocessed_images/2168_preprocessed.png"><img width="224" src="preprocessed_images/2168_preprocessed.png"></a> |
 | `2332` | <a href="preprocessed_images/2332_original.png"><img width="224" src="preprocessed_images/2332_original.png"></a> | <a href="preprocessed_images/2332_preprocessed.png"><img width="224" src="preprocessed_images/2332_preprocessed.png"></a> |
+
+---
