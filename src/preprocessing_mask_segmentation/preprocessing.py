@@ -32,7 +32,6 @@ def show_image(image: np.array) -> None:
 
     Args:
         image (np.array): The image to display.
-        title (str, optional): The title of the window. Defaults to "Image".
     """
 
     if not image.any():
@@ -43,7 +42,7 @@ def show_image(image: np.array) -> None:
     cv2.destroyAllWindows()
 
 
-def mask_binarization(image: np.array, grey_scale=128, max_val=255, type=cv2.THRESH_BINARY) -> np.array:
+def mask_binarization(image: np.array, grey_scale=128, max_val=255, tresh_type=cv2.THRESH_BINARY) -> np.array:
     """
     Applies thresholding to an image to create a binary mask.
     Automatically converts color images (BGR) to grayscale before processing.
@@ -61,7 +60,7 @@ def mask_binarization(image: np.array, grey_scale=128, max_val=255, type=cv2.THR
     if len(image.shape) == 3:
         image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-    th, im_th = cv2.threshold(image, grey_scale, max_val, type)
+    th, im_th = cv2.threshold(image, grey_scale, max_val, tresh_type)
     return im_th
 
 
