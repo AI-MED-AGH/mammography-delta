@@ -7,7 +7,7 @@ Next, holes within the objects were filled using `ndimage.binary_fill_holes` (Sc
 After labeling the connected components, the largest region was isolated as the main lesion.
 
 `shape_features` module was implemented to extract all basic image features. Best features were selected
-after analysis and testing - see [Feature Selection](06_feature_selection.md).
+after analysis and testing - see [Feature Selection](07_feature_selection.md).
 Finally, we decided not to include Euler Number feature because of image resolution imbalance
 and Solidity feature implementation. Resize image function was not used to extract
 these features to prevent distortion of the object's edges.
