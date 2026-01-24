@@ -18,8 +18,8 @@ Identifying extreme values using the IQR method to ensure data quality.
 * **Strategy**: Robust Scaling (StandardScaler or RobustScaler) will be prioritized over simple Min-Max scaling to handle these extreme values without losing information.
 
 ### EDA Artifacts:
-* **Full Correlation Matrix**: [correlation_matrix.csv](../data_analysis/eda/correlation_matrix.csv)
-* **Outlier Statistics**: [outlier_report.csv](../data_analysis/eda/outlier_report.csv)
-* **Visualizations**: Stored in `../data_analysis/eda/`.
+* **Full Correlation Matrix**: [correlation_matrix.csv](eda/correlation_matrix.csv)
+* **Outlier Statistics**: [outlier_report.csv](eda/outlier_report.csv)
+* **Visualizations**: Stored in `/documentation/eda/`.
 
 ---
