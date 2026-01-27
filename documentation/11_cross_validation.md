@@ -1,7 +1,6 @@
 ## Cross-Validation & Model Evaluation
 
-This module performs internal validation of machine learning models using **Stratified K-Fold Cross-Validation
-**. The goal is to estimate the expected performance and stability of the models on the training data before exposing
+This module performs internal validation of machine learning models using **Stratified K-Fold Cross-Validation**. The goal is to estimate the expected performance and stability of the models on the training data before exposing
 them to the final unseen test set.
 
 ### Validation Strategy: `StratifiedKFold`
