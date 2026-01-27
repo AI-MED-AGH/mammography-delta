@@ -9,10 +9,8 @@ parameters, we systematically search for the best combination of settings using 
 We utilize `GridSearchCV` from Scikit-Learn, which search over specified parameter values.
 
 * **Optimization Metric:** The search is driven by **ROC AUC** (Receiver Operating Characteristic Area Under Curve).
-  This metric was chosen over accuracy because it better reflects the model's ability to rank suspicious lesions higher 
-* than benign ones, regardless of the classification threshold.
-* **Internal Validation:** To prevent overfitting to the training set during optimization, the Grid Search employs *
-  *Stratified 5-Fold Cross-Validation** (identical to the main evaluation strategy).
+  This metric was chosen over accuracy because it better reflects the model's ability to rank suspicious lesions higher than benign ones, regardless of the classification threshold.
+* **Internal Validation:** To prevent overfitting to the training set during optimization, the Grid Search employs **Stratified 5-Fold Cross-Validation** (identical to the main evaluation strategy).
 * **Parallelization:** The process uses all available CPU cores (`n_jobs=-1`) to accelerate computation.
 
 ### Model Search Spaces
