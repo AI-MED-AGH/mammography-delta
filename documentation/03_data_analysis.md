@@ -66,7 +66,6 @@ Number of patients examined more than once: **622**
 
 * **Distribution Imbalance:** The BI-RADS score distribution is highly skewed. Scores 0, 1, and 2 represent a
   minority (~15%), while scores 3, 4, and 5 constitute the vast majority (~85%).
-* **Decision:** If a Multiclass Classification model predicting BI-RADS scores is implemented in the future, applying *
-  *class weights** will be crucial to handle the underrepresented lower scores.
+* **Decision:** If a Multiclass Classification model predicting BI-RADS scores is implemented in the future, applying **class weights** will be crucial to handle the underrepresented lower scores.
 
 ---
