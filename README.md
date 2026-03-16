@@ -21,7 +21,7 @@ This project is developed by a team of students:
 | **Filip Latawiec** | [![GitHub](https://img.shields.io/badge/-WilsonG78-181717?style=flat&logo=github)](https://github.com/WilsonG78) | Python Developer / Researcher|
 | **Natalia Czop** | [![GitHub](https://img.shields.io/badge/-czopnatalia-181717?style=flat&logo=github)](https://github.com/czopnatalia) | Python Developer / Researcher|
 | **Zofia Kąkolewicz** | [![GitHub](https://img.shields.io/badge/-thekakol-181717?style=flat&logo=github)](https://github.com/thekakol) | Python Developer / Researcher|
-| **Karyna Rudenko** | [![GitHub](https://img.shields.io/badge/-karRudenko-181717?style=flat&logo=github)](https://github.com/karRudenko) [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](www.linkedin.com/in/karyna-rudenko-641b3837b) | Python Developer / Researcher|
+| **Karyna Rudenko** | [![GitHub](https://img.shields.io/badge/-karRudenko-181717?style=flat&logo=github)](https://github.com/karRudenko) [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/karyna-rudenko-641b3837b/) | Python Developer / Researcher|
 
 ## Resources Used For The Project
 
